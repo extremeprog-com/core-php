@@ -1,0 +1,12 @@
+timeout = 300
+pid file = %PROJECTENV%/var/rsync.pid
+log file = %PROJECTLOG%/rsync.log
+use chroot = no
+
+[data]
+comment = %PROJECT%.data
+path = %PROJECTDATA%
+read only = no
+list = yes
+auth users = %USER%
+secrets file = %PROJECTENV%/etc/rsync/rsync.secrets

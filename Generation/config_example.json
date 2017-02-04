@@ -1,0 +1,8 @@
+/* place into cowork/config.json */
+{
+    "rm_url": "https://rm.tmcrussia.com/",
+    "project_id": 7,
+    "queue_field": "cf_61",
+    "tasklist": [14332],
+    "key": "63cccacbee6c3ee0c90ad1a01b1b6fe6c667a9fd"
+}

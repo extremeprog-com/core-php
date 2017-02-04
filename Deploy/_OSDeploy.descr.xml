@@ -1,0 +1,60 @@
+<module name="_OSDeploy">
+    <descr>
+
+    </descr>
+
+    <actor name="server">
+        <description>
+            Сервер, содержащий узел управления кластером.
+            - ждёт подключений от всех клиентов, при подключении передаёт номер текущей ревизии
+            - ждёт команды от мерж-мастера, оповещает всех клиентов об обновлении ревизии
+        </description>
+    </actor>
+
+    <actor name="client">
+        <description>
+            Клиент
+            - инициализация нового клиента происходит с помощью git clone, checkout-revision,
+              fetch-revision и init_configs
+            - клиент соединяется с помощью команды wait-new-revision --current-revision=$revision
+            - после соединения клиент обновляет ревизию, совершая git pull, git pull config,
+              copy-revision, init-project --revision=$revision
+        </description>
+        <action name="init">
+            git clone
+            _OSCore.CatchEvent('_OSCore_InitConfigs');
+
+        </action>
+        <action name="deploy">
+            _OSCore.CatchEvent('_OSDeploy_DeployStarted');
+            git pull
+
+        </action>
+    </actor>
+    <actor name="system">
+        <description>
+            Система:
+            - добавление сервера происходит командой add_server web343
+            - удаление сервера происходит простой остановкой сервера
+        </description>
+    </actor>
+
+    <process name="add-new-client">
+        <run_on>*hands</run_on>
+        <stages>setup-server clone revision-update</stages>
+    </process>
+    <process name="client-handy-revision-update">
+        <run_on>*hands server-update</run_on>
+        <stages>pull checkout-revision init-revision</stages>
+    </process>
+    <process name="checkout-revision">
+        <on>init </on>
+        <stages>fetch-config fetch-revision copy</stages>
+    </process>
+    <process name="init-dev">
+        <stages>clone merge-dev</stages>
+    </process>
+    <process name="merge-dev">
+        <stages>pull init</stages>
+    </process>
+</module>

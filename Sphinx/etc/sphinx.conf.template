@@ -1,0 +1,23 @@
+#
+# Minimal Sphinx configuration sample (clean, simple, functional)
+#
+
+%INDEXES%
+
+indexer
+{
+	mem_limit		= 32M
+}
+
+searchd
+{
+	listen			= %HOST%:%PORT%
+	log			    = %PROJECTLOG%/searchd-%ROLE%.log
+	query_log		= %PROJECTLOG%/query-%ROLE%.log
+	read_timeout	= 5
+	max_children	= 30
+	pid_file		= %PROJECTENV%/var/%ROLE%.pid
+	seamless_rotate	= 1
+	unlink_old		= 1
+	binlog_path		= %PROJECTDATA%/%ROLE%
+}

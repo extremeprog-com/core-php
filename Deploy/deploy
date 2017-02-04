@@ -1,0 +1,10 @@
+#!/bin/bash
+
+remove_crlf
+
+if [ "$1" ]; then
+    php-r "Deploy::deployBase(\"$1\",\"$2\");" "$3" "$4" "$5" "$6"
+else
+    echo "Syntax error. Usage:";
+    echo "$0 project-name [branch[+branch1_to_merge][+branch2_to_merge]]";
+fi;

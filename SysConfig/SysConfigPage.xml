@@ -1,0 +1,17 @@
+<tpl:slot type="html" name="title">Конфиг</tpl:slot>
+
+<tpl:slot type="html" name="head">
+    <tpl:resource name="VkAdminConfigPage">
+        include(CssNew)
+        include(AdminPage)
+        js(CoreJs/ObjectEditor.js)
+        js(pages/SysConfigPage.js)
+    </tpl:resource>
+</tpl:slot>
+
+<tpl:slot type="html" name="content">
+
+<div id="config">%%%</div>
+
+
+</tpl:slot>
